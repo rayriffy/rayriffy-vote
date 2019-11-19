@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Box, Divider, Flex, Heading, Stack } from '@chakra-ui/core'
 
+import Choices from './choices'
 import QuickActions from './quick'
 import Results from './results'
 
@@ -16,25 +17,20 @@ const DashboardComponent: React.FC = props => {
       <Divider />
 
       <Flex flexWrap='wrap' py={4}>
-        <Box width={['100%', '100%', 1 / 2]} pr={[0, 0, 4]}>
+        <Box width={['100%', '100%', 1 / 2]} pr={[0, 0, 8]}>
           <Stack spacing={6}>
             <Box>
               <QuickActions />
             </Box>
             <Box pb={[4, 4, 0]}>
-              <Heading size='md' pb={2}>
-                Results
-              </Heading>
               <Results />
             </Box>
           </Stack>
         </Box>
-        <Box width={['100%', '100%', 1 / 2]} pl={[0, 0, 4]}>
+        <Box width={['100%', '100%', 1 / 2]} pl={[0, 0, 8]}>
           <Stack spacing={6}>
             <Box>
-              <Heading size='md' pb={2}>
-                Choices
-              </Heading>
+              <Choices />
             </Box>
           </Stack>
         </Box>

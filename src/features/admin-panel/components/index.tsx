@@ -40,7 +40,7 @@ const AdminPanelComponents: React.FC<IProps> = props => {
               <Divider />
 
               <Box py={6}>
-                <Flex>
+                <Flex alignItems='center'>
                   <Box px={2}>
                     <Avatar
                       name={

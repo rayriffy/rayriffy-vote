@@ -65,9 +65,52 @@ const QuickComponent: React.FC = props => {
     }
   }
 
-  const handleReset = () => {
+  const handleReset = async () => {
     // TODO: Reset score
     setIsResetButtonLoad(true)
+
+    try {
+      const snapshot = await firebase
+        .firestore()
+        .collection('system')
+        .doc('votes')
+        .collection('choices')
+        .get()
+
+      await snapshot.docs.map(async doc => {
+        await firebase
+          .firestore()
+          .collection('system')
+          .doc('votes')
+          .collection('choices')
+          .doc(doc.id)
+          .update({ count: 0 })
+
+        return true
+      })
+
+      toast({
+        title: 'Success',
+        description: 'All votes have been resetted',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+
+      setIsResetButtonLoad(false)
+      setIsResetOpen(false)
+    } catch {
+      toast({
+        title: 'Failed',
+        description: `Unable to reset the vote`,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+
+      setIsResetButtonLoad(false)
+      setIsResetOpen(false)
+    }
   }
 
   useEffect(() => {
@@ -126,7 +169,7 @@ const QuickComponent: React.FC = props => {
         <AlertDialogOverlay />
         <AlertDialogContent>
           <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Reset voting score
+            Reset score
           </AlertDialogHeader>
 
           <AlertDialogBody>

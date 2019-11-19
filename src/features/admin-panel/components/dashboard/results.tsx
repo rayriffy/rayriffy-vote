@@ -5,6 +5,7 @@ import firebase from '../../../../core/services/firebase'
 
 import {
   Flex,
+  Heading,
   Spinner,
   Stat,
   StatGroup,
@@ -27,6 +28,7 @@ const ResultComponent: React.FC = props => {
       .collection('system')
       .doc('votes')
       .collection('choices')
+      .orderBy('name')
       .onSnapshot(collection => {
         setChoices(
           collection.docs.map(doc => {
@@ -43,6 +45,9 @@ const ResultComponent: React.FC = props => {
 
   return (
     <React.Fragment>
+      <Heading size='md' pb={2}>
+        Results
+      </Heading>
       {choices === null ? (
         <Flex justifyContent='center'>
           <Spinner />
