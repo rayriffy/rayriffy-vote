@@ -20,7 +20,7 @@ import {
 import { IChoiceProps } from '../../../@types/IChoiceProps'
 
 const ChoiceComponent: React.FC<IChoiceProps> = props => {
-  const { id, name, count } = props
+  const { id, name, count, open } = props
 
   const toast = useToast()
 
@@ -72,6 +72,7 @@ const ChoiceComponent: React.FC<IChoiceProps> = props => {
           variantColor='red'
           icon='delete'
           isLoading={isRemoveButtonLoad}
+          isDisabled={open === true}
           onClick={() => setIsRemoveAlertOpen(true)}
         />
         <Text pl={2}>{name}</Text>

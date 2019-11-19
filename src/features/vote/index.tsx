@@ -61,7 +61,7 @@ const VoteComponent: React.FC = props => {
       .collection('system')
       .doc('votes')
       .collection('choices')
-      .orderBy('name')
+      .orderBy('name', 'desc')
       .onSnapshot(collection => {
         setChoices(
           collection.docs.map(doc => {

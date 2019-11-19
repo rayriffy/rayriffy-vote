@@ -1,12 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { Box, Divider, Flex, Heading, Stack } from '@chakra-ui/core'
+import 'firebase/firestore'
+import firebase from '../../../../core/services/firebase'
+
+import { Box, Divider, Flex, Heading, Stack, useToast } from '@chakra-ui/core'
 
 import Choices from './choices'
 import QuickActions from './quick'
 import Results from './results'
 
 const DashboardComponent: React.FC = props => {
+  const toast = useToast()
+
+  const [open, setOpen] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const listener = firebase
+      .firestore()
+      .collection('system')
+      .doc('votes')
+      .onSnapshot(
+        res => {
+          const data = res.data()
+          if (data) {
+            setOpen(data.open)
+          }
+        },
+        () => {
+          toast({
+            title: 'Unstable connection',
+            description:
+              'Data may not be shown in real-time but it will trying to catch up.',
+            status: 'warning',
+            duration: 5000,
+            isClosable: true,
+          })
+        }
+      )
+
+    return listener
+  }, [])
+
   return (
     <Box
       bg='white'
@@ -20,7 +54,7 @@ const DashboardComponent: React.FC = props => {
         <Box width={['100%', '100%', 1 / 2]} pr={[0, 0, 8]}>
           <Stack spacing={6}>
             <Box>
-              <QuickActions />
+              <QuickActions open={open} />
             </Box>
             <Box pb={[4, 4, 0]}>
               <Results />
@@ -30,7 +64,7 @@ const DashboardComponent: React.FC = props => {
         <Box width={['100%', '100%', 1 / 2]} pl={[0, 0, 8]}>
           <Stack spacing={6}>
             <Box>
-              <Choices />
+              <Choices open={open} />
             </Box>
           </Stack>
         </Box>

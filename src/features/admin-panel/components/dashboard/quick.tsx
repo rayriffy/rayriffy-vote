@@ -18,10 +18,13 @@ import {
   useToast,
 } from '@chakra-ui/core'
 
-const QuickComponent: React.FC = props => {
+import { IQuickProps } from '../../@types/IQuickProps'
+
+const QuickComponent: React.FC<IQuickProps> = props => {
+  const { open } = props
+
   const toast = useToast()
 
-  const [open, setOpen] = useState<boolean | null>(null)
   const [isVoteButtonLoad, setIsVoteButtonLoad] = useState<boolean>(false)
 
   const [isResetOpen, setIsResetOpen] = useState<boolean>(false)
@@ -112,33 +115,6 @@ const QuickComponent: React.FC = props => {
       setIsResetOpen(false)
     }
   }
-
-  useEffect(() => {
-    const listener = firebase
-      .firestore()
-      .collection('system')
-      .doc('votes')
-      .onSnapshot(
-        res => {
-          const data = res.data()
-          if (data) {
-            setOpen(data.open)
-          }
-        },
-        () => {
-          toast({
-            title: 'Unstable connection',
-            description:
-              'Data may not be shown in real-time but it will trying to catch up.',
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-          })
-        }
-      )
-
-    return listener
-  }, [])
 
   return (
     <React.Fragment>

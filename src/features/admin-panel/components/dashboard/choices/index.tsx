@@ -28,13 +28,17 @@ import {
 
 import Choice from './choice'
 
+import { IChoicesProps } from '../../../@types/IChoicesProps'
+
 interface IChoice {
   id: string
   name: string
   count: number
 }
 
-const ChoicesComponent: React.FC = props => {
+const ChoicesComponent: React.FC<IChoicesProps> = props => {
+  const { open } = props
+
   const toast = useToast()
 
   const [choices, setChoices] = useState<IChoice[] | null>(null)
@@ -83,7 +87,7 @@ const ChoicesComponent: React.FC = props => {
       .collection('system')
       .doc('votes')
       .collection('choices')
-      .orderBy('name')
+      .orderBy('name', 'desc')
       .onSnapshot(collection => {
         setChoices(
           collection.docs.map(doc => {
@@ -104,7 +108,13 @@ const ChoicesComponent: React.FC = props => {
       <Flex pb={2}>
         <Heading size='md'>Choices</Heading>
         <Box mx='auto' />
-        <IconButton onClick={onOpen} aria-label='Add' icon='add' size='xs' />
+        <IconButton
+          onClick={onOpen}
+          aria-label='Add'
+          icon='add'
+          size='xs'
+          isDisabled={open === true}
+        />
       </Flex>
       {choices === null ? (
         <Flex justifyContent='center'>
@@ -114,7 +124,7 @@ const ChoicesComponent: React.FC = props => {
         <React.Fragment>
           {choices.map(choice => (
             <Box key={`dashboard-choices-${choice.id}`} py={2}>
-              <Choice {...choice} />
+              <Choice open={open} {...choice} />
             </Box>
           ))}
         </React.Fragment>
