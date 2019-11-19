@@ -1,0 +1,52 @@
+name: Deployment
+
+on: [push]
+
+jobs:
+
+  test:
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: "Init: Summon NodeJS"
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: "Init: Install yarn"
+      run: |
+        curl -o- -L https://yarnpkg.com/install.sh | bash
+    - name: "Cache: node_modules"
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-${{ env.cache-name }}-
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+    - name: "Init: Install dependencies"
+      run: |
+        yarn install
+        yarn global add firebase-cli
+    - name: "Test: Type checking"
+      run: |
+        yarn test:types
+    - name: "Test: Code linting"
+      run: |
+        yarn test:lint
+    - name: "Build: Build static Next site"
+      run: |
+        yarn build
+        yarn export
+    - name: "Deploy: Install Firebase Tools"
+      run: |
+        yarn global add firebase-tools
+    - name: "Deploy: Upload to Firebase"
+      env:
+        FIREBASE_DEPLOY_KEY: ${{ secrets.FIREBASE_DEPLOY_KEY }}
+        FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
+      run: |
+        firebase deploy -m "Pipeline $GITHUB_SHA" --non-interactive --token $FIREBASE_DEPLOY_KEY --project $FIREBASE_PROJECT

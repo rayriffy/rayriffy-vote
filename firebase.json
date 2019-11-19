@@ -1,0 +1,9 @@
+{
+  "hosting": {
+    "public": "out"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

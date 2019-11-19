@@ -1,0 +1,40 @@
+{
+  "name": "rayriffy-vote",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:rayriffy/rayriffy-vote.git",
+  "author": "Phumrapee Limpianchop <contact@rayriffy.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "export": "next export",
+    "start": "next build && next start",
+    "test:types": "tsc",
+    "test:lint": "tslint 'src/**/*.{ts,tsx}'"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.4.1",
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.23",
+    "babel-plugin-emotion": "^10.0.23",
+    "emotion-theming": "^10.0.19",
+    "firebase": "^7.4.0",
+    "moment": "^2.24.0",
+    "next": "^9.1.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/moment": "^2.13.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^4.1.0",
+    "typescript": "^3.7.2"
+  }
+}
