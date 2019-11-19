@@ -24,8 +24,6 @@ const AdminPanelComponents: React.FC<IProps> = props => {
     onLogout()
   }
 
-  console.log(user)
-
   return (
     <Flex justifyContent='center'>
       <Box width={[22 / 24, 20 / 24, 18 / 24, 16 / 24]}>
