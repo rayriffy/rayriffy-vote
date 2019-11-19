@@ -7,14 +7,10 @@ import {
   Divider,
   Flex,
   Heading,
-  Stack,
-  Stat,
-  StatGroup,
-  StatHelpText,
-  StatLabel,
-  StatNumber,
   Text,
 } from '@chakra-ui/core'
+
+import Dashboard from './dashboard'
 
 import { IProps } from '../@types/IProps'
 
@@ -73,57 +69,7 @@ const AdminPanelComponents: React.FC<IProps> = props => {
             </Box>
           </Box>
           <Box p={6} width={['100%', '100%', 7 / 10]}>
-            <Box
-              bg='white'
-              p={6}
-              boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
-              borderRadius={10}>
-              <Heading size='xl'>Dashboard</Heading>
-              <Divider />
-
-              <Flex flexWrap='wrap' py={4}>
-                <Box width={['100%', '100%', 1 / 2]} pr={[0, 0, 4]}>
-                  <Stack spacing={6}>
-                    <Box>
-                      <Heading size='md' pb={2}>
-                        Quick Actions
-                      </Heading>
-                      <Stack spacing={2}>
-                        <Button>Open vote</Button>
-                        <Button>Reset score</Button>
-                      </Stack>
-                    </Box>
-                    <Box pb={[6, 6, 0]}>
-                      <Heading size='md' pb={2}>
-                        Results
-                      </Heading>
-                      <StatGroup>
-                        <Stat>
-                          <StatLabel>Prayuth</StatLabel>
-                          <StatNumber>345,670</StatNumber>
-                          <StatHelpText>1st</StatHelpText>
-                        </Stat>
-
-                        <Stat>
-                          <StatLabel>Thaksin</StatLabel>
-                          <StatNumber>45</StatNumber>
-                          <StatHelpText>2nd</StatHelpText>
-                        </Stat>
-                      </StatGroup>
-                    </Box>
-                  </Stack>
-                </Box>
-                <Box width={['100%', '100%', 1 / 2]} pl={[0, 0, 4]}>
-                  <Stack spacing={6}>
-                    <Box>
-                      <Heading size='md' pb={2}>
-                        Choices
-                      </Heading>
-                    </Box>
-                  </Stack>
-                </Box>
-              </Flex>
-            </Box>
+            <Dashboard />
           </Box>
         </Flex>
       </Box>
