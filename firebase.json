@@ -1,6 +1,12 @@
 {
   "hosting": {
-    "public": "out"
+    "public": "out",
+    "rewrites": [
+      {
+        "source": "/admin",
+        "destination": "/admin.html"
+      }
+    ]
   },
   "firestore": {
     "rules": "firestore.rules",
