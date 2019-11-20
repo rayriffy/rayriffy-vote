@@ -94,7 +94,7 @@ const VoteComponent: React.FC<IProps> = props => {
         <Divider />
 
         <Box py={6}>
-          <Flex alignItems='center'>
+          <Flex justifyContent='center' alignItems='center'>
             <Box px={2}>
               <Avatar
                 name={user.displayName === null ? 'N/A' : user.displayName}
