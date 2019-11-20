@@ -47,7 +47,6 @@ jobs:
     - name: "Deploy: Upload to Firebase"
       env:
         FIREBASE_DEPLOY_KEY: ${{ secrets.FIREBASE_DEPLOY_KEY }}
-        FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
         FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
         FIREBASE_AUTH_DOMAIN: ${{ secrets.FIREBASE_AUTH_DOMAIN }}
         FIREBASE_DATABASE_URL: ${{ secrets.FIREBASE_DATABASE_URL }}
@@ -57,4 +56,4 @@ jobs:
         FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         FIREBASE_MEASUREMENT_ID: ${{ secrets.FIREBASE_MEASUREMENT_ID }}
       run: |
-        firebase deploy -m "Pipeline $GITHUB_SHA" --non-interactive --token $FIREBASE_DEPLOY_KEY --project $FIREBASE_PROJECT
+        firebase deploy -m "Pipeline $GITHUB_SHA" --non-interactive --token $FIREBASE_DEPLOY_KEY --project $FIREBASE_PROJECT_ID
