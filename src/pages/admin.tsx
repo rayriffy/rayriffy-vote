@@ -7,7 +7,7 @@ import firebase from '../core/services/firebase'
 
 import { Box, Button, Flex, Heading, Spinner, Text } from '@chakra-ui/core'
 
-import AdminPanel from '../features/admin-panel/components'
+import Admin from '../features/admin/components'
 
 const AdminPage: React.FC = props => {
   const [authState, setAuthState] = useState<number>(0)
@@ -120,7 +120,7 @@ const AdminPage: React.FC = props => {
           </Box>
         </Flex>
       ) : user !== null ? (
-        <AdminPanel user={user} onLogout={handleLogout} />
+        <Admin user={user} onLogout={handleLogout} />
       ) : null}
     </React.Fragment>
   )
