@@ -69,7 +69,6 @@ const QuickComponent: React.FC<IQuickProps> = props => {
   }
 
   const handleReset = async () => {
-    // TODO: Reset score
     setIsResetButtonLoad(true)
 
     try {
