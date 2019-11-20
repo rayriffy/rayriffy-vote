@@ -19,6 +19,7 @@
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "babel-plugin-emotion": "^10.0.23",
+    "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.19",
     "firebase": "^7.4.0",
     "lodash": "^4.17.15",
