@@ -1,5 +1,6 @@
 import { User } from 'firebase'
 
-export interface IVoteProps {
+export interface IProps {
   user: User
+  onLogout(): void
 }

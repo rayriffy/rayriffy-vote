@@ -77,7 +77,7 @@ const QuickComponent: React.FC<IQuickProps> = props => {
         .firestore()
         .collection('system')
         .doc('votes')
-        .collection('choices')
+        .collection('pools')
         .get()
 
       await snapshot.docs.map(async doc => {
@@ -85,9 +85,9 @@ const QuickComponent: React.FC<IQuickProps> = props => {
           .firestore()
           .collection('system')
           .doc('votes')
-          .collection('choices')
+          .collection('pools')
           .doc(doc.id)
-          .update({ count: 0 })
+          .delete()
 
         return true
       })

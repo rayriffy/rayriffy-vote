@@ -11,27 +11,20 @@ import {
   Flex,
   Heading,
   Spinner,
-  Stack,
   Text,
   useToast,
 } from '@chakra-ui/core'
 
-import { IVoteProps } from '../@types/IVoteProps'
+import Vote from './vote'
 
-interface IChoice {
-  id: string
-  name: string
-  count: number
-}
+import { IProps } from '../@types/IProps'
 
-const VoteComponent: React.FC<IVoteProps> = props => {
+const VoteComponent: React.FC<IProps> = props => {
   const { onLogout, user } = props
 
   const toast = useToast()
 
-  const [choices, setChoices] = useState<IChoice[] | null>(null)
   const [isVoteOpen, setIsVoteOpen] = useState<boolean | null>(null)
-
   const [isLogoutLoad, setIsLogoutLoad] = useState<boolean>(false)
 
   const handleLogout = () => {
@@ -67,28 +60,6 @@ const VoteComponent: React.FC<IVoteProps> = props => {
     return listener
   }, [])
 
-  useEffect(() => {
-    const listener = firebase
-      .firestore()
-      .collection('system')
-      .doc('votes')
-      .collection('choices')
-      .orderBy('name', 'desc')
-      .onSnapshot(collection => {
-        setChoices(
-          collection.docs.map(doc => {
-            return {
-              id: doc.id,
-              name: doc.data().name,
-              count: doc.data().count,
-            }
-          })
-        )
-      })
-
-    return listener
-  }, [])
-
   return (
     <React.Fragment>
       <Box
@@ -109,16 +80,8 @@ const VoteComponent: React.FC<IVoteProps> = props => {
               Waiting on next round
             </Text>
           </Flex>
-        ) : isVoteOpen === true && choices !== null ? (
-          <Flex justifyContent='center' py={3}>
-            <Stack spacing={4} width={['100%', '100%', 20 / 24, 18 / 24]}>
-              {choices.map(choice => (
-                <Button width='100%' key={`vote-choice-${choice.id}`}>
-                  {choice.name}
-                </Button>
-              ))}
-            </Stack>
-          </Flex>
+        ) : isVoteOpen === true ? (
+          <Vote user={user} />
         ) : null}
       </Box>
 
