@@ -84,7 +84,7 @@ const ResultComponent: React.FC = props => {
             count: filter(pools, pool => pool.choice === choice.id).length,
           }
         }),
-        [o => o.count, o => o.name]
+        o => o.count
       )
         .reverse()
         .map(o => o.choice)
