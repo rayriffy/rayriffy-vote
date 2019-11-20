@@ -113,7 +113,6 @@ const ResultComponent: React.FC = props => {
                 {pools.filter(o => choice.id === o.choice).length}
               </StatNumber>
               <StatHelpText>
-                {console.log(rank.indexOf(choice.id))}
                 Rank:{' '}
                 {rank.indexOf(choice.id) === -1
                   ? `N/A`
