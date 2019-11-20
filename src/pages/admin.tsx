@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import { Helmet } from 'react-helmet'
+
 import { auth, User } from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -70,6 +72,7 @@ const AdminPage: React.FC = props => {
 
   return (
     <React.Fragment>
+      <Helmet title='Admin' />
       {authState !== 4 ? (
         <Flex justifyContent='center' alignItems='center' height='100%'>
           <Box
