@@ -18,7 +18,7 @@ Installation & Set-up
 | Document Path               | Value   |
 | --------------------------- | ------- |
 | `/system/admins/uids`       | `[]`    |
-| `/system/admins/votes/open` | `false` |
+| `/system/votes/open` | `false` |
 
 3. Copy **Firebase SDK configuration** into `.env` file and evnironment variables of your production Node (Example can be found at `.env.example`)
 
