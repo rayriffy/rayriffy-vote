@@ -41,25 +41,13 @@ const VoteComponent: React.FC<IProps> = props => {
       .firestore()
       .collection('system')
       .doc('votes')
-      .onSnapshot(
-        doc => {
-          const data = doc.data()
+      .onSnapshot(doc => {
+        const data = doc.data()
 
-          if (data) {
-            setIsVoteOpen(data.open)
-          }
-        },
-        () => {
-          toast({
-            title: 'Unstable connection',
-            description:
-              'Data may not be shown in real-time but it will trying to catch up.',
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-          })
+        if (data) {
+          setIsVoteOpen(data.open)
         }
-      )
+      })
 
     return listener
   }, [])

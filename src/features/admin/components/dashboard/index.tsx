@@ -23,24 +23,12 @@ const DashboardComponent: React.FC = props => {
       .firestore()
       .collection('system')
       .doc('votes')
-      .onSnapshot(
-        res => {
-          const data = res.data()
-          if (data) {
-            setOpen(data.open)
-          }
-        },
-        () => {
-          toast({
-            title: 'Unstable connection',
-            description:
-              'Data may not be shown in real-time but it will trying to catch up.',
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-          })
+      .onSnapshot(res => {
+        const data = res.data()
+        if (data) {
+          setOpen(data.open)
         }
-      )
+      })
 
     return listener
   }, [])

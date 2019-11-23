@@ -124,27 +124,15 @@ const VoteComponent: React.FC<IVoteProps> = props => {
       .doc('votes')
       .collection('pools')
       .doc(user.uid)
-      .onSnapshot(
-        doc => {
-          const data = doc.data()
+      .onSnapshot(doc => {
+        const data = doc.data()
 
-          if (data) {
-            setSelectedChoice(data.choice)
-          } else {
-            setSelectedChoice(null)
-          }
-        },
-        () => {
-          toast({
-            title: 'Unstable connection',
-            description:
-              'Data may not be shown in real-time but it will trying to catch up.',
-            status: 'warning',
-            duration: 5000,
-            isClosable: true,
-          })
+        if (data) {
+          setSelectedChoice(data.choice)
+        } else {
+          setSelectedChoice(null)
         }
-      )
+      })
 
     return listener
   }, [])
