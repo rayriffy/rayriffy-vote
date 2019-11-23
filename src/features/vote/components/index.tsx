@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
+import { useAsyncEffect } from 'use-async-effect'
+
 import 'firebase/firestore'
 import firebase from '../../../core/services/firebase'
 
@@ -32,8 +34,10 @@ const VoteComponent: React.FC<IProps> = props => {
     onLogout()
   }
 
-  useEffect(() => {
-    const listener = firebase
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    const listener = instance
       .firestore()
       .collection('system')
       .doc('votes')

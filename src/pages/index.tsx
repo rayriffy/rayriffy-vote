@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+
+import { useAsyncEffect } from 'use-async-effect'
 
 import { auth, User } from 'firebase'
 import 'firebase/auth'
@@ -14,10 +16,12 @@ const IndexPage: React.FC = props => {
 
   const [isLoginLoad, setIsLoginLoad] = useState<boolean>(false)
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setIsLoginLoad(true)
 
-    firebase
+    const instance = await firebase()
+
+    instance
       .auth()
       .signInWithPopup(new auth.GoogleAuthProvider())
       .finally(() => {
@@ -25,16 +29,20 @@ const IndexPage: React.FC = props => {
       })
   }
 
-  const handleLogout = () => {
-    firebase
+  const handleLogout = async () => {
+    const instance = await firebase()
+
+    instance
       .auth()
       .signOut()
       .then(() => setAuthState(1))
       .catch(() => setAuthState(-1))
   }
 
-  useEffect(() => {
-    const listener = firebase.auth().onAuthStateChanged(res => {
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    const listener = instance.auth().onAuthStateChanged(res => {
       if (res === null) {
         setAuthState(1)
       } else {

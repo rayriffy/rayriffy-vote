@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import 'firebase/firestore'
 import firebase from '../../../../core/services/firebase'
@@ -31,13 +31,15 @@ const QuickComponent: React.FC<IQuickProps> = props => {
   const [isResetButtonLoad, setIsResetButtonLoad] = useState<boolean>(false)
   const resetCancelRef = useRef(null)
 
-  const handleToggleVote = () => {
+  const handleToggleVote = async () => {
     if (open !== null) {
       setIsVoteButtonLoad(true)
 
       const newVoteState = !open
 
-      firebase
+      const instance = await firebase()
+
+      instance
         .firestore()
         .collection('system')
         .doc('votes')
@@ -72,7 +74,9 @@ const QuickComponent: React.FC<IQuickProps> = props => {
     setIsResetButtonLoad(true)
 
     try {
-      const snapshot = await firebase
+      const instance = await firebase()
+
+      const snapshot = await instance
         .firestore()
         .collection('system')
         .doc('votes')
@@ -80,7 +84,7 @@ const QuickComponent: React.FC<IQuickProps> = props => {
         .get()
 
       await snapshot.docs.map(async doc => {
-        await firebase
+        await instance
           .firestore()
           .collection('system')
           .doc('votes')

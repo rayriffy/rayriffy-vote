@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+
+import { useAsyncEffect } from 'use-async-effect'
 
 import 'firebase/firestore'
 import firebase from '../../../core/services/firebase'
@@ -23,11 +25,13 @@ const VoteComponent: React.FC<IVoteProps> = props => {
 
   const [isVoteLoad, setIsVoteLoad] = useState<boolean>(false)
 
-  const handleVote = (id: string, name: string) => {
+  const handleVote = async (id: string, name: string) => {
     setIsVoteLoad(true)
 
+    const instance = await firebase()
+
     if (selectedChoice === id) {
-      firebase
+      instance
         .firestore()
         .collection('system')
         .doc('votes')
@@ -56,7 +60,7 @@ const VoteComponent: React.FC<IVoteProps> = props => {
           setIsVoteLoad(false)
         })
     } else {
-      firebase
+      instance
         .firestore()
         .collection('system')
         .doc('votes')
@@ -89,8 +93,10 @@ const VoteComponent: React.FC<IVoteProps> = props => {
     }
   }
 
-  useEffect(() => {
-    firebase
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    instance
       .firestore()
       .collection('system')
       .doc('votes')
@@ -109,8 +115,10 @@ const VoteComponent: React.FC<IVoteProps> = props => {
       })
   }, [])
 
-  useEffect(() => {
-    const listener = firebase
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    const listener = instance
       .firestore()
       .collection('system')
       .doc('votes')

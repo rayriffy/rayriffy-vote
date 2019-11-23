@@ -1,6 +1,8 @@
 import { filter, sortBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 
+import { useAsyncEffect } from 'use-async-effect'
+
 import 'firebase/firestore'
 import firebase from '../../../../core/services/firebase'
 
@@ -32,8 +34,10 @@ const ResultComponent: React.FC = props => {
   const [pools, setPools] = useState<IPool[]>([])
   const [rank, setRank] = useState<string[]>([])
 
-  useEffect(() => {
-    const listener = firebase
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    const listener = instance
       .firestore()
       .collection('system')
       .doc('votes')
@@ -54,8 +58,10 @@ const ResultComponent: React.FC = props => {
     return listener
   }, [])
 
-  useEffect(() => {
-    const listener = firebase
+  useAsyncEffect(async () => {
+    const instance = await firebase()
+
+    const listener = instance
       .firestore()
       .collection('system')
       .doc('votes')

@@ -9,7 +9,7 @@ const firebase = async () => {
 
     return firebaseApp.initializeApp(config)
   } else {
-    firebaseApp.app()
+    return firebaseApp.app()
   }
 }
 

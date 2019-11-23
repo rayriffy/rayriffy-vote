@@ -29,10 +29,12 @@ const ChoiceComponent: React.FC<IChoiceProps> = props => {
 
   const [isRemoveButtonLoad, setIsRemoveButtonLoad] = useState<boolean>(false)
 
-  const handleRemove = () => {
+  const handleRemove = async () => {
     setIsRemoveButtonLoad(true)
 
-    firebase
+    const instance = await firebase()
+
+    instance
       .firestore()
       .collection('system')
       .doc('votes')
