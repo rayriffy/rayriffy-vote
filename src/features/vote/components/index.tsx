@@ -14,7 +14,6 @@ import {
   Heading,
   Spinner,
   Text,
-  useToast,
 } from '@chakra-ui/core'
 
 import Vote from './vote'
@@ -23,8 +22,6 @@ import { IProps } from '../@types/IProps'
 
 const VoteComponent: React.FC<IProps> = props => {
   const { onLogout, user } = props
-
-  const toast = useToast()
 
   const [isVoteOpen, setIsVoteOpen] = useState<boolean | null>(null)
   const [isLogoutLoad, setIsLogoutLoad] = useState<boolean>(false)

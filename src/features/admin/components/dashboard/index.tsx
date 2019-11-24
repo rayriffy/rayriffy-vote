@@ -5,15 +5,13 @@ import { useAsyncEffect } from 'use-async-effect'
 import 'firebase/firestore'
 import firebase from '../../../../core/services/firebase'
 
-import { Box, Divider, Flex, Heading, Stack, useToast } from '@chakra-ui/core'
+import { Box, Divider, Flex, Heading, Stack } from '@chakra-ui/core'
 
 import Choices from './choices'
 import QuickActions from './quick'
 import Results from './results'
 
 const DashboardComponent: React.FC = props => {
-  const toast = useToast()
-
   const [open, setOpen] = useState<boolean | null>(null)
 
   useAsyncEffect(async () => {
