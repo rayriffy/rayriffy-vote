@@ -5,18 +5,32 @@ service cloud.firestore {
       return request.auth.uid in get(/databases/$(database)/documents/systems/admin).data.uids;
     }
 
-    match /system/votes/pools/{voteUID} {
+    match /system {
       allow read;
-	    allow create, update:
-      	if request.auth.uid == voteUID;
-      allow write:
-      	if isAdmin();
+      allow write: if isAdmin();
+
+      match /votes {
+        match /pools/{voteUID} {
+          allow read;
+          allow create, update:
+            if request.auth.uid == voteUID;
+          allow write:
+            if isAdmin();
+        }
+
+        // match /choices/documents {
+        //   match /{document=**} {
+        //     allow read;
+        //     allow write: if isAdmin();
+        //   }
+        // }
+      }
     }
 
-    match /system/admins/uid {
-      allow read;
-      allow write:
-        if isAdmin();
-    }
+    // match /system/admins/uid {
+    //   allow read;
+    //   allow write:
+    //     if isAdmin();
+    // }
   }
 }
