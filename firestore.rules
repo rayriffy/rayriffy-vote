@@ -2,14 +2,27 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
-      return request.auth.uid in get(/databases/$(database)/documents/systems/admin).data.uids;
+      return request.auth.uid in get(/databases/$(database)/documents/system/admins).data.uids;
     }
 
     match /system {
       allow read;
       allow write: if isAdmin();
+      
+      match /admins {
+      	allow read;
+        allow write: if isAdmin();
+      }
 
       match /votes {
+        allow read;
+	      allow write: if isAdmin();
+        
+        match /choices/{choiceID} {
+        	allow read;
+          allow write: if isAdmin();
+        }
+
         match /pools/{voteUID} {
           allow read;
           allow create, update:
@@ -17,20 +30,7 @@ service cloud.firestore {
           allow write:
             if isAdmin();
         }
-
-        // match /choices/documents {
-        //   match /{document=**} {
-        //     allow read;
-        //     allow write: if isAdmin();
-        //   }
-        // }
       }
     }
-
-    // match /system/admins/uid {
-    //   allow read;
-    //   allow write:
-    //     if isAdmin();
-    // }
   }
 }
