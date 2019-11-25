@@ -1620,6 +1620,19 @@ amphtml-validator@1.0.23:
     commander "2.9.0"
     promise "7.1.1"
 
+animated-number-react@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/animated-number-react/-/animated-number-react-0.0.2.tgz#2fba104362aac669149a41e5773b9965b93a95e5"
+  integrity sha1-L7oQQ2KqxmkUmkHldzuZZbk6leU=
+  dependencies:
+    animejs "^2.2.0"
+    prop-types "^15.6.1"
+
+animejs@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/animejs/-/animejs-2.2.0.tgz#35eefdfc535b81949c9cb06f0b3e60c02e6fdc80"
+  integrity sha1-Ne79/FNbgZScnLBvCz5gwC5v3IA=
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
