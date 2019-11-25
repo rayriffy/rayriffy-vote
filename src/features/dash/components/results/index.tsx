@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { useAsyncEffect } from 'use-async-effect'
 
 import 'firebase/firestore'
-import firebase from '../../../core/services/firebase'
+import firebase from '../../../../core/services/firebase'
 
 import { Box, Flex, Heading, Text } from '@chakra-ui/core'
 import styled from '@emotion/styled'
 
-import AnimatedNumber from 'animated-number-react'
+import Result from './result'
 
 interface IStyledBoxProps {
   tada: boolean
@@ -30,7 +30,7 @@ const StyledBox = styled(Box)<IStyledBoxProps>`
     props.tada ? `animation: tada infinite 1s;` : ``}
 `
 
-const ResultComponent: React.FC = props => {
+const ResultsComponent: React.FC = props => {
   const [choices, setChoices] = useState<IChoice[] | null>(null)
 
   const [pools, setPools] = useState<IPool[]>([])
@@ -102,22 +102,10 @@ const ResultComponent: React.FC = props => {
                 width={['100%', '100%', 1 / 2, 1 / 4]}
                 key={`dash-choice-${i}`}
                 p={6}>
-                <Box
-                  p={6}
-                  borderRadius={10}
-                  bg='white'
-                  boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'>
-                  <Text fontSize='2xl' pb={2} textAlign='center'>
-                    {choice.name}
-                  </Text>
-                  <Heading textAlign='center'>
-                    <AnimatedNumber
-                      value={pools.filter(o => choice.id === o.choice).length}
-                      duration={500}
-                      formatValue={(value: number) => Math.floor(value)}
-                    />
-                  </Heading>
-                </Box>
+                <Result
+                  title={choice.name}
+                  count={pools.filter(o => choice.id === o.choice).length}
+                />
               </Box>
             ))}
           </React.Fragment>
@@ -127,4 +115,4 @@ const ResultComponent: React.FC = props => {
   )
 }
 
-export default ResultComponent
+export default ResultsComponent

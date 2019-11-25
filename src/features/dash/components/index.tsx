@@ -65,7 +65,7 @@ const DashComponent: React.FC = props => {
         <Flex height='100%' alignItems='center'>
           <Image width='auto' height='100%' src='/static/qr.png' />
           <Box pl={4}>
-            <Text fontSize='lg'>Get your vote now!</Text>
+            <Text fontSize='lg'>Get your phone now!</Text>
             <Heading size='md'>vote.rayriffy.com</Heading>
           </Box>
         </Flex>
