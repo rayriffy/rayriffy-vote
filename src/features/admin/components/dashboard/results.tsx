@@ -1,4 +1,3 @@
-import { filter, sortBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 
 import { useAsyncEffect } from 'use-async-effect'
@@ -26,6 +25,10 @@ interface IChoice {
 interface IPool {
   id: string
   choice: string
+}
+
+const sortBy = (key: string): ((a: any, b: any) => number) => {
+  return (a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0)
 }
 
 const ResultComponent: React.FC = props => {
@@ -82,16 +85,16 @@ const ResultComponent: React.FC = props => {
 
   useEffect(() => {
     if (choices !== null) {
-      const rank = sortBy(
-        choices.map(choice => {
+      const rank = choices
+        .map(choice => {
           return {
             name: choice.name,
             choice: choice.id,
-            count: filter(pools, pool => pool.choice === choice.id).length,
+            count: pools.filter(pool => pool.choice === choice.id).length,
           }
-        }),
-        o => o.count
-      )
+        })
+        .concat()
+        .sort(sortBy('count'))
         .reverse()
         .map(o => o.choice)
 
